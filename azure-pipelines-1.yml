@@ -1,0 +1,32 @@
+trigger:
+- main  # Or the branch you want to trigger the pipeline
+
+pool:
+  name: Self-Hosted
+
+jobs:
+- job: build
+  displayName: 'Build and Deploy Vue.js App'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '16.x'  # Specify the Node.js version
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install
+      npm run build
+    displayName: 'Install dependencies and build'
+
+  - task: CopyFiles@2
+    inputs:
+      contents: 'dist/**'
+      targetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy files to artifact staging directory'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'drop'
+    displayName: '
+
