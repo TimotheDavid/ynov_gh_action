@@ -18,4 +18,17 @@ jobs:
       npm run build
     displayName: 'Install dependencies and build'
 
+  - task: CopyFiles@2
+    inputs:
+      contents: 'dist/**'  # Copy all files from the dist directory
+      targetFolder: '$(Build.ArtifactStagingDirectory)'  # Destination folder for artifacts
+    displayName: 'Copy files to artifact staging directory'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'  # Path to the files to upload
+      artifactName: 'drop'  # Name of the artifact
+      publishLocation: 'Container'  # Location to publish the artifacts
+    displayName: 'Publish build artifacts'
+
 
