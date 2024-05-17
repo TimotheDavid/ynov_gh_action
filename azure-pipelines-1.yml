@@ -18,17 +18,11 @@ jobs:
       npm run build
     displayName: 'Install dependencies and build'
 
-  - task: CopyFiles@2
+  - task: AzureStaticWebApp@0
     inputs:
-      contents: 'dist/**'  # Copy all files from the dist directory
-      targetFolder: '$(Build.ArtifactStagingDirectory)'  # Destination folder for artifacts
-    displayName: 'Copy files to artifact staging directory'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: '$(Build.ArtifactStagingDirectory)'  # Path to the files to upload
-      artifactName: 'drop'  # Name of the artifact
-      publishLocation: 'Container'  # Location to publish the artifacts
-    displayName: 'Publish build artifacts'
+      app_location: '/'  # Location of your application source code
+      output_location: 'dist'  # Location of the build output directory
+      azure_static_web_apps_api_token: $(deployment_token)  # Set this as a secret in your pipeline variables
+    displayName: 'Deploy to Azure Static Web Apps'
 
 
