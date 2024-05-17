@@ -2,7 +2,7 @@ trigger:
 - main  # Or the branch you want to trigger the pipeline
 
 pool:
-  name: Self-Hosted
+  name: localMContainer
 
 jobs:
 - job: build
