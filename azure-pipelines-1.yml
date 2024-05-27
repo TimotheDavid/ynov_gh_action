@@ -20,8 +20,6 @@ jobs:
 
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: 'dist'  # The folder containing the files to package
-      includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/vuejs-app.zip'
       replaceExistingArchive: true
