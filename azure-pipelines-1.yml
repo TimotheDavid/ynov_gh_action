@@ -1,25 +1,42 @@
 trigger:
-  - main  # Adjust this to your branch name
+- main  # Or the branch you want to trigger the pipeline
 
 pool:
   name: localMContainer
 
 jobs:
-  - job: Build
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: '14.x'  # Specify the Node.js version you need
-        displayName: 'Install Node.js'
+- job: build
+  displayName: 'Build and Deploy Vue.js App'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'  # Specify the Node.js version
+    displayName: 'Install Node.js'
 
-      - script: |
-          npm install
-          npm run build
-        displayName: 'npm install and build'
+  - script: |
+      npm install
+      npm run build
+    displayName: 'Install dependencies and build'
 
-      # Publish dist folder as artifact
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'dist'  # Specify the path to the dist folder
-          artifactName: 'vuejs-app'
-        displayName: 'Publish Artifact'
+  - task: ArchiveFiles@2
+    inputs:
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/vuejs-app.zip'
+      replaceExistingArchive: true
+      displayName: 'Archive files'
+
+  - task: CopyFiles@2
+    inputs:
+      contents: |
+        *.zip
+      targetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy files to artifact staging directory'
+  
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'vuejs-app.zip'
+      displayName: 'Publish Artifact'
+
+
