@@ -27,8 +27,8 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'vuejs-app'
-    displayName: 'Publish Artifact'
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'vuejs-app'
+      displayName: 'Publish Artifact'
 
 
