@@ -1,9 +1,8 @@
 name: Deploy Vite App to Azure Static Web Apps
 
 on:
-  push:
-    branches:
-      - main # Change this to your main branch
+  release:
+    types: [published]
 
 jobs:
   build-and-deploy:
