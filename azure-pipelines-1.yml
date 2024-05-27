@@ -29,14 +29,14 @@ jobs:
   - task: CopyFiles@2
     inputs:
       contents: |
-        *.zip
+        dist/**
       targetFolder: '$(Build.ArtifactStagingDirectory)'
     displayName: 'Copy files to artifact staging directory'
   
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: 'vuejs-app.zip'
+      artifactName: 'vuejs-app'
       displayName: 'Publish Artifact'
 
 
