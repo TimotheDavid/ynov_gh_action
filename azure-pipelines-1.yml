@@ -9,7 +9,7 @@ jobs:
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: '18.x'  # Specify the Node.js version you need
+          versionSpec: '14.x'  # Specify the Node.js version you need
         displayName: 'Install Node.js'
 
       - script: |
@@ -17,17 +17,17 @@ jobs:
           npm run build
         displayName: 'npm install and build'
 
-      - task: ArchiveFiles@2
+      # Copy dist folder contents to artifact staging directory
+      - task: CopyFiles@2
         inputs:
-          rootFolderOrFile: 'dist'  # The folder containing the files to package
-          includeRootFolder: false
-          archiveType: 'zip'
-          archiveFile: '$(Build.ArtifactStagingDirectory)/vuejs-app.zip'
-          replaceExistingArchive: true
-        displayName: 'Archive files'
+          SourceFolder: 'dist'
+          Contents: '**'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/dist'
+        displayName: 'Copy dist folder contents'
 
+      # Publish dist folder as artifact
       - task: PublishBuildArtifacts@1
         inputs:
-          pathToPublish: '$(Build.ArtifactStagingDirectory)/vuejs-app.zip'
+          pathToPublish: '$(Build.ArtifactStagingDirectory)/dist'
           artifactName: 'vuejs-app'
         displayName: 'Publish Artifact'
