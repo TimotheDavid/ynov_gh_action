@@ -20,22 +20,22 @@ jobs:
 
   - task: ArchiveFiles@2
     inputs:
-      archiveType: 'zip'
-      archiveFile: '/vuejs-app.zip'
-      replaceExistingArchive: true
-      displayName: 'Archive files'
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/vuejs-app.zip'
+          replaceExistingArchive: true
+        displayName: 'Archive files'
 
   - task: CopyFiles@2
     inputs:
       contents: |
-        '/*'
+        *
       targetFolder: '$(Build.ArtifactStagingDirectory)'
     displayName: 'Copy files to artifact staging directory'
   
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: 'vuejs-app.zip'
+      artifactName: 'vuejs-app'
       displayName: 'Publish Artifact'
 
 
