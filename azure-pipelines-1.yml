@@ -20,6 +20,6 @@ jobs:
       # Publish dist folder as artifact
       - task: PublishBuildArtifacts@1
         inputs:
-          pathToPublish: '/**/dist'  # Specify the path to the dist folder
+          pathToPublish: 'dist'  # Specify the path to the dist folder
           artifactName: 'vuejs-app'
         displayName: 'Publish Artifact'
