@@ -17,17 +17,9 @@ jobs:
           npm run build
         displayName: 'npm install and build'
 
-      # Copy dist folder contents to artifact staging directory
-      - task: CopyFiles@2
-        inputs:
-          SourceFolder: 'dist'
-          Contents: '**'
-          TargetFolder: '$(Build.ArtifactStagingDirectory)/dist'
-        displayName: 'Copy dist folder contents'
-
       # Publish dist folder as artifact
       - task: PublishBuildArtifacts@1
         inputs:
-          pathToPublish: '$(Build.ArtifactStagingDirectory)/dist'
+          pathToPublish: 'dist'  # Specify the path to the dist folder
           artifactName: 'vuejs-app'
         displayName: 'Publish Artifact'
