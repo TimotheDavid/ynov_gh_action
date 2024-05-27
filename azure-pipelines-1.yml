@@ -2,9 +2,7 @@ trigger:
   - main  # Adjust this to your branch name
 
 pool:
-  name: Default
-  demands:
-    - agent.name -equals self-hosted  # Ensure the pipeline runs on your self-hosted agent
+  name: localMContainer
 
 jobs:
   - job: Build
