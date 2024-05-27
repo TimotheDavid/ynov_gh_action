@@ -25,4 +25,10 @@ jobs:
       azure_static_web_apps_api_token: $(deployment_token)  # Set this as a secret in your pipeline variables
     displayName: 'Deploy to Azure Static Web Apps'
 
+  - task: PublishBuildArtifacts@1
+    inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'vuejs-app'
+    displayName: 'Publish Artifact'
+
 
