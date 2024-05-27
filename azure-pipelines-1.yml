@@ -23,7 +23,7 @@ jobs:
           archiveType: 'zip'
           archiveFile: '$(Build.ArtifactStagingDirectory)/vuejs-app.zip'
           replaceExistingArchive: true
-        displayName: 'Archive files'
+          displayName: 'Archive files'
 
   - task: CopyFiles@2
     inputs:
